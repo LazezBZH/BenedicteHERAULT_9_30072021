@@ -156,7 +156,9 @@ export default class {
     }
 
     bills.forEach((bill) => {
-      $(`#open-bill${bill.id}`).click((e) =>
+      //ajout de id du menu (status-bills-container${index})
+      //pour permettre affichage de notes de frais d'un menu déroulé précédemment ([Bug Hunt]-Dashboard)
+      $(`#status-bills-container${index} #open-bill${bill.id}`).click((e) =>
         this.handleEditTicket(e, bill, bills)
       );
     });
