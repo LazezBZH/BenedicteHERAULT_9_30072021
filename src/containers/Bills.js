@@ -1,6 +1,7 @@
 import { ROUTES_PATH } from "../constants/routes.js";
 import { formatDate, formatStatus } from "../app/format.js";
 import Logout from "./Logout.js";
+import BigBilledIcon from "../assets/svg/big_billed.js";
 
 export default class {
   constructor({ document, onNavigate, firestore, localStorage }) {
@@ -26,13 +27,22 @@ export default class {
 
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url");
-    const imgWidth = Math.floor($("#modaleFile").width() * 0.5);
-    $("#modaleFile")
-      .find(".modal-body")
-      .html(
-        `<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`
-      );
-    $("#modaleFile").modal("show");
+    if (billUrl === "null") {
+      $("#modaleFile")
+        .find(".modal-body")
+        .html(
+          `<div style='text-align: center;'>${BigBilledIcon}<p>Absence de justificatif</p></div>`
+        );
+      $("#modaleFile").modal("show");
+    } else {
+      const imgWidth = Math.floor($("#modaleFile").width() * 0.5);
+      $("#modaleFile")
+        .find(".modal-body")
+        .html(
+          `<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`
+        );
+      $("#modaleFile").modal("show");
+    }
   };
 
   // not need to cover this function by tests
