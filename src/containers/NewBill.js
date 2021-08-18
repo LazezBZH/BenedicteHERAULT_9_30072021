@@ -17,18 +17,21 @@ export default class NewBill {
     new Logout({ document, localStorage, onNavigate });
   }
   handleChangeFile = (e) => {
+    e.preventDefault();
     const file = this.document.querySelector(`input[data-testid="file"]`)
       .files[0];
-    const filePath = e.target.value.split(/\\/g);
-    const fileName = filePath[filePath.length - 1];
+    const fileType = file.type;
+    //ajout fileName
+    const fileName = file.name;
+    //message erreur extension
+    const errorMessage = this.document.getElementById("extension-error");
+    const extensions = /(jpg|jpeg|png)$/i;
     //extensions autorisées jpg, jpeg et png
-    const fileValue = file.value;
-    const extensions = /(\.jpg|\.jpeg|\.png)$/i;
-    if (!extensions.exec(fileValue)) {
-      alert("Format de fichier non accepté");
+    if (!extensions.exec(fileType)) {
+      errorMessage.style.display = "block";
       file.value = "";
-      return false;
     } else {
+      errorMessage.style.display = "none";
       this.firestore.storage
         .ref(`justificatifs/${fileName}`)
         .put(file)
@@ -39,6 +42,7 @@ export default class NewBill {
         });
     }
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(
