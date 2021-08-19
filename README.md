@@ -48,3 +48,5 @@ $jest src/__tests__/your_test_file.js
 `http://127.0.0.1:8080/coverage/lcov-report/`
 
 
+----------------------------------------------------------------------------------
+[Site démo Billed app](https://billed-p9-dfe-oc-herault-benedicte.netlify.app/)
